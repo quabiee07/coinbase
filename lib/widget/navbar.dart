@@ -1,3 +1,4 @@
+import 'package:calorie_tracker/res/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -7,7 +8,7 @@ class CustomBottomNavigationBar extends StatefulWidget {
   final List<String> text;
 
   const CustomBottomNavigationBar(
-      {this.defaultSelectedIndex = 0,
+      {Key? key,this.defaultSelectedIndex = 0,
         required this.iconList,
         required this.text,
         required this.onChange});
@@ -41,6 +42,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     }
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: _navBarItemList,
     );
   }
@@ -54,7 +56,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           });
         },
         child: Container(
-          height: 60,
+          height: 65,
           width: MediaQuery.of(context).size.width / _iconList.length,
           decoration: index == _selectedIndex
               ?  const BoxDecoration()
@@ -71,7 +73,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                         color: index == _selectedIndex
-                            ? const Color(0xFF2150F5)
+                            ? ColorManager.primaryColor
                             : Colors.grey[500]),
                   )
                 ]),
