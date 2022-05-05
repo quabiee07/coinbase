@@ -45,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: ListView(
         scrollDirection: Axis.vertical,
+        shrinkWrap: true,
         children: [
           const SizedBox(
             height: 20,
@@ -56,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children:  [
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                     child: Text(
@@ -82,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    const EdgeInsets.only(right: 20, top: 20),
                 child: roundButton(
                     const Icon(
                       Icons.add_alert_rounded,

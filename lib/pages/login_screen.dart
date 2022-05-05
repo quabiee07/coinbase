@@ -25,20 +25,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _goNext() {
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (builder) => const HomeScreen()));
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (ctx) => const HomeScreen()));
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _timer?.cancel();
+    
     _emailController.dispose();
     _passwordController.dispose();
   }
 
-  final _formKey = GlobalKey<FormState>();
+  final _scaffoldState = GlobalKey<ScaffoldState>();
   late bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -46,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        key: _scaffoldState,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_rounded,
@@ -60,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Form(
-          key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -100,12 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const BorderSide(color: ColorManager.primaryColor),
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
-                  validator: (email) {
-                    if (email == null || email.isEmpty) {
-                      return 'Enter an email';
-                    }
-                    return null;
-                  },
+
                 ),
               ),
               Padding(
@@ -135,13 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             const BorderSide(color: ColorManager.primaryColor),
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
-                  validator: (password) {
-                    if (password == null ||
-                        password.isEmpty && password.length < 6) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  },
                 ),
               ),
               login(context),
@@ -195,13 +183,12 @@ class _LoginScreenState extends State<LoginScreen> {
             );
           } else {
             ScaffoldMessenger.of(context).showSnackBar(
-                 SnackBar(content: Text('Failed to send Message!. Error code: ${response.toString()}'),backgroundColor: Colors.red,)
+                 SnackBar(content: Text('Failed to Sign in!. Error code: ${response.toString()}'),backgroundColor: Colors.red,)
             );
           }
           _emailController.clear();
           _passwordController.clear();
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (builder) => const HomeScreen()));
+          // _startDelay();
         },
         child: Container(
           width: width,

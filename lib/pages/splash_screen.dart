@@ -119,8 +119,8 @@ class Splash extends StatelessWidget {
         ) ,
         child: GestureDetector(
           onTap: (){
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (builder) => const LoginScreen()));
+            // Navigator.of(context).pushReplacement(
+            //     MaterialPageRoute(builder: (builder) => const LoginScreen()));
           },
           child: Center(child: Text('Get started',style: getSemiBoldStyle(
               color: ColorManager.secondaryColor, fontSize: FontSize.s18), )),
